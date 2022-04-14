@@ -1,11 +1,7 @@
 # An Ecommerce App with crud system
 
-For using this, you can run:
+This is E-commerce app with MERN stack + tailwindcss.\
+The deployment of this app, you can access in [here](https://mern-ecommerce-app-fajri.herokuapp.com/).
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app with `npm start` and access [http://localhost:3001](http://localhost:3001) to view it in your browser.\
+The backend repository is in [here](https://github.com/fajrianwarf/mern-ecommerce-server)

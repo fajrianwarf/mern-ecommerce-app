@@ -1,11 +1,44 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { api } from '../helper'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Button from '../components/Button'
-import Checkbox from '../components/Checkbox'
 import Container from '../components/Container'
 import Input from '../components/Input'
+// import Checkbox from '../components/Checkbox'
 
 export default function Register() {
+  const navigate = useNavigate()
+  const [ full_name, setFullName ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
+  const [ password2, setPassword2 ] = useState('')
+  const [ validation, setValidation ] = useState('');
+
+  let body = { full_name, email, password }
+
+  const register = async (e) => {
+    e.preventDefault()
+    try {
+      if(password === password2){
+        await axios
+          .post(`${api}/auth/register`, body)
+          .then(res => {
+            setValidation(res.data)
+            if(res.data.error !== 1) {
+              setTimeout(() => {
+                navigate('/login');
+              }, 500);
+            }
+            
+          })
+      }
+      
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
   return (
       <Container className='w-2/5'>
         <form>
@@ -17,16 +50,21 @@ export default function Register() {
                 </svg>
               </Link>
             </div>
-            <Input type='email' name='email' label='Email' placeholder='johndoe@example.com' />
-            <Input type='password' name='password' label='Password' placeholder='...' />
-            <Input type='password' name='confirm_password' label='Confirm Password' placeholder='...' />
-            <div className='flex justify-between mt-1 text-gray-500'>
+            <Input name='full_name' label='Full name' placeholder='John Doe' onChange={e => setFullName(e.target.value)} />
+            {validation.fields?.full_name ? (<p className='mb-2 -mt-2 text-sm text-red-400'>{validation.fields.full_name.message}</p>) : ''}
+            <Input type='email' name='email' label='Email' placeholder='johndoe@example.com' onChange={e => setEmail(e.target.value)} />
+            {validation.fields?.email ? (<p className='mb-2 -mt-2 text-sm text-red-400'>{validation.fields.email.message}</p>) : ''}
+            <Input type='password' name='password' label='Password' placeholder='...' onChange={e => setPassword(e.target.value)} />
+            {validation.fields?.password ? (<p className='mb-2 -mt-2 text-sm text-red-400'>{validation.fields.password.message}</p>) : ''}
+            <Input type='password' name='confirm_password' label='Confirm Password' placeholder='...' onChange={e => setPassword2(e.target.value)} />
+            {password !== password2 ? (<p className='mb-2 -mt-2 text-sm text-red-400'>Password is not the same</p>) : ''}
+            {/* <div className='flex justify-between mt-1 text-gray-500'>
                 <Checkbox name='remember'>Accept terms and conditions</Checkbox>
                 <div>
                   <span>Already have an account? </span><Link to='/login' className='text-sky-600'>login</Link>
                 </div>
-            </div>
-            <Button onClick={e => e.preventDefault()} >sign up</Button>
+            </div> */}
+            <Button onClick={(e) => register(e)} >sign up</Button>
         </form>
       </Container>
   )
