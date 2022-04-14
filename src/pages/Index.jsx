@@ -215,7 +215,7 @@ export default function Index() {
                         <div className='flex items-center w-2/5 gap-x-2'>
                             <Category dataCategories={categories} setSendCategory={setSendCategory} />
                             <span className='pb-1 text-white'>|</span>
-                            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className='py-0.5 w-full shadow-sm border-none rounded-md focus:ring focus:ring-sky-300' placeholder='search something' />
+                            <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className='py-0.5 px-2 focus:outline-none w-full shadow-sm border-none rounded-md focus:ring focus:ring-sky-300' placeholder='search something' />
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
