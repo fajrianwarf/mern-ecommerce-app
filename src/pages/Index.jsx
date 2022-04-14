@@ -25,7 +25,6 @@ export default function Index() {
 
     const checkAuth = async () => {
         try {
-            console.log(authHeaders, 'this is auth headers')
             await axios
                 .get(`${api}/auth/me`, authHeaders)
                 .then(res => {
