@@ -7,12 +7,10 @@ import { api } from '../helper';
 export default function Invoice() {
     const { id } = useParams();
     const navigate = useNavigate()
-    const [invoice, setInvoice] = useState({})
+    const [invoice, setInvoice] = useState({});
+    const [token, setToken] = useState(localStorage.getItem('token')); //the token needs to get renewed whenever the page renders or else the token will get the value previous token after login (and to get the newly login token you would even need to refresh the page)
 
-    const authHeaders = {
-        headers: {
-            Authorization : `Bearer ${localStorage.getItem('token')}`
-    }}
+    const authHeaders = { headers: { Authorization : `Bearer ${token}` }}
 
     const getInvoice = async () => {
         try {
